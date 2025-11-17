@@ -26,3 +26,31 @@ int scan_move(int board_size) {
     scanf("%d", &col);
     return col;
 }
+
+int comp_move(int board_size, int *arena){
+int col;
+do {
+col = rand() % board_size;
+if (*get_cell(arena, board_size, col, 0) = EMPTY)
+    return col;
+    } while (1);
+}
+void update_arena(int *arena, int size, int column, Cell player) {
+    for (int y = size - 1; y >= 0; --y) {
+        int *cell = get_cell(arena, size, column, y);
+        if (*cell == EMPTY) {
+            *cell = player;
+            return;
+        }
+    }
+}
+
+void print_arena(int *arena, int size) {
+    for (int y = 0; y < size; ++y) {
+        for (int x = 0; x < size; ++x) {
+            printf("%d ", *get_cell(arena, size, x, y));
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
