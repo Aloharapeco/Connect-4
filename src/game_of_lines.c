@@ -28,11 +28,11 @@ int scan_move(int board_size) {
 }
 
 int comp_move(int board_size, int *arena){
-int col;
-do {
-col = rand() % board_size;
-if (*get_cell(arena, board_size, col, 0) = EMPTY)
-    return col;
+    int col;
+    do {
+        col = rand() % board_size;
+        if (*get_cell(arena, board_size, col, 0) = EMPTY)
+            return col;
     } while (1);
 }
 void update_arena(int *arena, int size, int column, Cell player) {
@@ -53,4 +53,39 @@ void print_arena(int *arena, int size) {
         printf("\n");
     }
     printf("\n");
+}
+//checking winner line in direction
+static bool check_dir(int *arena, int size, int x, int y, int dx, int dy, int needed) {
+Cell start = *get_cell(arena, size, x, y);
+    if (start == EMPTY) return false;
+
+    for (int i = 1; i < needed; ++i) {
+        int nx = x + dx * i;
+        int ny = y + dy * i;
+
+        if (nx < 0 || ny < 0 || nx >= size || ny >= size) return false;
+        if (*get_cell(arena, size, nx, ny) != start) return false;
+
+}
+    return true;
+}
+//checking all cells and directions Winner
+Cell winner(int *arena, int size, int needed) {
+for (int y = 0; y < size; ++y) {
+    for (int x = 0; x < size; ++x) {
+        if (check_dir(arena, size, x, y, 1, 0, needed)) return *get_cell(arena, size, x, y);
+        if (check_dir(arena, size, x, y, 0, 1, needed)) return *get_cell(arena, size, x, y);
+        if (check_dir(arena, size, x, y, 1, 1, needed)) return *get_cell(arena, size, x, y);
+        if (check_dir(arena, size, x, y, -1, 1, needed)) return *get_cell(arena, size, x, y);
+    }
+}
+return EMPTY;
+}
+
+void game_of_line() {
+srand(time(NULL));
+
+    Settings s;
+    scan_settings(&s);
+
 }
