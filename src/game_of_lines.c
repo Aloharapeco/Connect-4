@@ -9,15 +9,15 @@ int *get_cell(int *arena, int size, int x, int y) {
     return arena + (y * size + x);
 }
 
-void scan_settings(int *opponent_is_ai, int *size_of_arena, int *size_of_win_line, Settings *s) {
-    printf("Play against computer? (press 1 for yes or 0 for no)");
-    scanf("%d", opponent_is_ai);
+void scan_settings(Settings *s) {
+    printf("Play against computer? (1 = yes, 0 = no): ");
+    scanf("%d", &s->vs_computer);
 
-    printf("Enter a board size (Example 5x5)");
-    scanf("%d", size_of_arena);
+    printf("Enter board size (example type 5 for a 5x5 board): ");
+    scanf("%d", &s->board_size);
 
-    printf("Enter Victory Line Length");
-    scanf("%d", size_of_win_line);
+    printf("Enter required line length to win: ");
+    scanf("%d", &s->win_length);
 }
 
 int scan_move(int board_size) {
