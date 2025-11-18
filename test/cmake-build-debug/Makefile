@@ -116,24 +116,37 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named games_of_line
+# Target rules for targets named games_of_lines.c
 
 # Build rule for target.
-games_of_line: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 games_of_line
-.PHONY : games_of_line
+games_of_lines.c: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 games_of_lines.c
+.PHONY : games_of_lines.c
 
 # fast build rule for target.
-games_of_line/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_line.dir\build.make CMakeFiles/games_of_line.dir/build
-.PHONY : games_of_line/fast
+games_of_lines.c/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_lines.c.dir\build.make CMakeFiles/games_of_lines.c.dir/build
+.PHONY : games_of_lines.c/fast
+
+#=============================================================================
+# Target rules for targets named play_game.c
+
+# Build rule for target.
+play_game.c: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 play_game.c
+.PHONY : play_game.c
+
+# fast build rule for target.
+play_game.c/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\play_game.c.dir\build.make CMakeFiles/play_game.c.dir/build
+.PHONY : play_game.c/fast
 
 C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.obj: C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.obj
 .PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.obj
 
 # target to build an object file
 C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_line.dir\build.make CMakeFiles/games_of_line.dir/C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_lines.c.dir\build.make CMakeFiles/games_of_lines.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.obj
 .PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.obj
 
 C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.i: C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.i
@@ -141,7 +154,7 @@ C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.i: C_/Users/alex6/CLion
 
 # target to preprocess a source file
 C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_line.dir\build.make CMakeFiles/games_of_line.dir/C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_lines.c.dir\build.make CMakeFiles/games_of_lines.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.i
 .PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.i
 
 C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.s: C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.s
@@ -149,8 +162,35 @@ C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.s: C_/Users/alex6/CLion
 
 # target to generate assembly for a file
 C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_line.dir\build.make CMakeFiles/games_of_line.dir/C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_lines.c.dir\build.make CMakeFiles/games_of_lines.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.s
 .PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.c.s
+
+C_/Users/alex6/CLionProjects/Connect-4/src/play_game.obj: C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.obj
+.PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/play_game.obj
+
+# target to build an object file
+C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_lines.c.dir\build.make CMakeFiles/games_of_lines.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\play_game.c.dir\build.make CMakeFiles/play_game.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.obj
+.PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.obj
+
+C_/Users/alex6/CLionProjects/Connect-4/src/play_game.i: C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.i
+.PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/play_game.i
+
+# target to preprocess a source file
+C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_lines.c.dir\build.make CMakeFiles/games_of_lines.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\play_game.c.dir\build.make CMakeFiles/play_game.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.i
+.PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.i
+
+C_/Users/alex6/CLionProjects/Connect-4/src/play_game.s: C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.s
+.PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/play_game.s
+
+# target to generate assembly for a file
+C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\games_of_lines.c.dir\build.make CMakeFiles/games_of_lines.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\play_game.c.dir\build.make CMakeFiles/play_game.c.dir/C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.s
+.PHONY : C_/Users/alex6/CLionProjects/Connect-4/src/play_game.c.s
 
 # Help Target
 help:
@@ -160,10 +200,14 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... games_of_line
+	@echo ... games_of_lines.c
+	@echo ... play_game.c
 	@echo ... C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.obj
 	@echo ... C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.i
 	@echo ... C_/Users/alex6/CLionProjects/Connect-4/src/game_of_lines.s
+	@echo ... C_/Users/alex6/CLionProjects/Connect-4/src/play_game.obj
+	@echo ... C_/Users/alex6/CLionProjects/Connect-4/src/play_game.i
+	@echo ... C_/Users/alex6/CLionProjects/Connect-4/src/play_game.s
 .PHONY : help
 
 

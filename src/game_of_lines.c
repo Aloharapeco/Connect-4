@@ -9,7 +9,7 @@ int *get_cell(int *arena, int size, int x, int y) {
     return arena + (y * size + x);
 }
 
-void scan_settings(Settings *s) {
+void scan_settings(int *opponent_is_ai, int *size_of_arena, int *size_of_win_line, Settings *s) {
     printf("Play against computer? (press 1 for yes or 0 for no)");
     scanf("%d", (int*)&s->vs_computer);
 
