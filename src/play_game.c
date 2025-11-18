@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include "game_of_lines.h"
 
+
 int main(void) {
-    int opponent_is_ai;
-    int size_of_arena;
-    int size_of_win_line;
+    Settings s;
 
-    // Scan settings from user
-    scan_settings(&opponent_is_ai, &size_of_arena, &size_of_win_line);
+    // Ask the user for settings
+    scan_settings(&s);
 
-    // Run the game using the scanned parameters
-    game_of_lines(opponent_is_ai, size_of_arena, size_of_win_line);
+    // Start the game
+    game_of_lines(s.vs_computer, s.board_size, s.win_length);
 
     return 0;
 }
+
+
