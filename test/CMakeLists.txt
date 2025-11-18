@@ -1,0 +1,1 @@
+add_executable(games_of_lines.c ../src/game_of_lines.c)
