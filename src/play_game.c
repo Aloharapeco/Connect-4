@@ -11,13 +11,13 @@ int main(void) {
     int size_of_win_line;
 
     // Prompt user for settings
-    printf("Play against AI? (1 = yes, 0 = no): ");
+    printf("Play against computer? (1 = yes, 0 = no): ");
     scanf("%d", &opponent_is_ai);
 
-    printf("Enter arena size (e.g., 5 = 5x5): ");
+    printf("Enter arena size (example, 5 = 5x5): ");
     scanf("%d", &size_of_arena);
 
-    printf("Enter winning line length: ");
+    printf("Enter required win length: ");
     scanf("%d", &size_of_win_line);
 
     // Run the game

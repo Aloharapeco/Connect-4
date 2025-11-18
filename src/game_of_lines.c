@@ -9,7 +9,7 @@ int *get_cell(int *arena, int size, int x, int y) {
 }
 
 void scan_settings(Settings *s) {
-    printf("Play against computer? (1 = yes, 0 = no): ");
+    printf("Play against computer? 1 = (yes, 0 = no): ");
     scanf("%d", &s->vs_computer);
 
     printf("Enter board size (example: 5 = 5x5): ");
