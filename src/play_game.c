@@ -6,22 +6,14 @@
 void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line);
 
 int main(void) {
-    int opponent_is_ai;
-    int size_of_arena;
-    int size_of_win_line;
-
-    // Prompt user for settings
-    printf("Play against computer? (1 = yes, 0 = no): ");
-    scanf("%d", &opponent_is_ai);
-
-    printf("Enter arena size (example, 5 = 5x5): ");
-    scanf("%d", &size_of_arena);
-
-    printf("Enter required win length: ");
-    scanf("%d", &size_of_win_line);
-
-    // Run the game
-    game_of_lines(opponent_is_ai, size_of_arena, size_of_win_line);
+    int opponent_is_ai, size_of_arena, size_of_win_line;
+    Settings settings;
+    scan_settings(&settings);
+    game_of_lines(
+    settings.opponent_is_ai,
+    settings.size_of_arena,
+    settings.size_of_win_line
+    );
     return 0;
 }
 

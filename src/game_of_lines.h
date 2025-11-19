@@ -10,9 +10,9 @@ typedef enum {
 } Cell;
 
 typedef struct {
-    int vs_computer;
-    int board_size;
-    int win_length;
+    int opponent_is_ai;
+    int size_of_arena;
+    int size_of_win_line;
 } Settings;
 
 int* get_cell(int* arena, int size, int x, int y);
