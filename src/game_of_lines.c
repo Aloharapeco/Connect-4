@@ -4,16 +4,12 @@
 #include <time.h>
 #include "game_of_lines.h"
 
-// ---------------------------------------------
-// Helper: get pointer to arena[x][y]
-// ---------------------------------------------
+
 int *get_cell(int *arena, int size, int x, int y) {
     return arena + (y * size + x);
 }
 
-// ---------------------------------------------
-// Ask: computer opponent? board size? win length?
-// ---------------------------------------------
+
 void scan_settings(Settings *s) {
     printf("Play against computer or Player? 1 for PVE and 0 for PVP): ");
     scanf("%d", &s->opponent_is_ai);
@@ -25,9 +21,7 @@ void scan_settings(Settings *s) {
     scanf("%d", &s->size_of_win_line);
 }
 
-// ---------------------------------------------
-// Ask human for next move
-// ---------------------------------------------
+
 int scan_move(int board_size) {
     int col;
     printf("Choose column (0 to %d): ", board_size - 1);
@@ -35,9 +29,7 @@ int scan_move(int board_size) {
     return col;
 }
 
-// ---------------------------------------------
-// AI picks a random non-full column
-// ---------------------------------------------
+
 int ai_move(int board_size, int *arena) {
     int col;
     do {
@@ -47,9 +39,7 @@ int ai_move(int board_size, int *arena) {
     } while (1);
 }
 
-// ---------------------------------------------
-// Drop piece into column like Connect-4
-// ---------------------------------------------
+
 void update_arena(int *arena, int size, int column, Cell player) {
     for (int y = size - 1; y >= 0; --y) {
         int *cell = get_cell(arena, size, column, y);
@@ -60,9 +50,7 @@ void update_arena(int *arena, int size, int column, Cell player) {
     }
 }
 
-// ---------------------------------------------
-// Print arena
-// ---------------------------------------------
+
 void print_arena(int *arena, int size) {
     for (int y = 0; y < size; ++y) {
         for (int x = 0; x < size; ++x) {
@@ -73,9 +61,7 @@ void print_arena(int *arena, int size) {
     printf("\n");
 }
 
-// ---------------------------------------------
-// Winner check helper: check line in direction dx,dy
-// ---------------------------------------------
+
 static bool check_dir(int *arena, int size, int x, int y, int dx, int dy, int needed) {
     Cell start = *get_cell(arena, size, x, y);
     if (start == EMPTY) return false;
@@ -91,9 +77,7 @@ static bool check_dir(int *arena, int size, int x, int y, int dx, int dy, int ne
     return true;
 }
 
-// ---------------------------------------------
-// Winner: check all cells & directions
-// ---------------------------------------------
+
 Cell winner(int *arena, int size, int needed) {
     for (int y = 0; y < size; ++y) {
         for (int x = 0; x < size; ++x) {
@@ -106,9 +90,7 @@ Cell winner(int *arena, int size, int needed) {
     return EMPTY;
 }
 
-// ---------------------------------------------
-// Game loop
-// ---------------------------------------------
+
 void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) {
     srand(time(NULL));
 
