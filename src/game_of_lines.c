@@ -15,10 +15,10 @@ int *get_cell(int *arena, int size, int x, int y) {
 // Ask: computer opponent? board size? win length?
 // ---------------------------------------------
 void scan_settings(Settings *s) {
-    printf("Play against computer? (1 = yes, 0 = no): ");
+    printf("Play against computer or Player? 1 for PVE and 0 for PVP): ");
     scanf("%d", &s->opponent_is_ai);
 
-    printf("Enter board size (e.g., 7): ");
+    printf("Enter board size (example 5 for a 5x5): ");
     scanf("%d", &s->size_of_arena);
 
     printf("Enter required line length to win: ");
