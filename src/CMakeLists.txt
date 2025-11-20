@@ -19,6 +19,7 @@ add_library(game_of_lines
 # -------------------------
 add_executable(play_game
         src/play_game.c
+        src/game_of_lines.c
 )
 
 # Link the library to the main executable

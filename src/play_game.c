@@ -3,8 +3,6 @@
 #include "game_of_lines.h"
 
 
-void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line);
-
 int main(void) {
     int opponent_is_ai, size_of_arena, size_of_win_line;
     Settings settings;
