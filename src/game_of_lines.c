@@ -4,21 +4,30 @@
 #include <time.h>
 #include "game_of_lines.h"
 
+// ---------------------------------------------
+// Helper: get pointer to arena[x][y]
+// ---------------------------------------------
 int *get_cell(int *arena, int size, int x, int y) {
     return arena + (y * size + x);
 }
 
+// ---------------------------------------------
+// Ask: computer opponent? board size? win length?
+// ---------------------------------------------
 void scan_settings(Settings *s) {
-    printf("Play against computer? 1 = (yes, 0 = no): ");
+    printf("Play against computer? (1 = yes, 0 = no): ");
     scanf("%d", &s->opponent_is_ai);
 
-    printf("Enter board size (example: 5 = 5x5): ");
+    printf("Enter board size (e.g., 7): ");
     scanf("%d", &s->size_of_arena);
 
-    printf("Enter required win length: ");
+    printf("Enter required line length to win: ");
     scanf("%d", &s->size_of_win_line);
 }
 
+// ---------------------------------------------
+// Ask human for next move
+// ---------------------------------------------
 int scan_move(int board_size) {
     int col;
     printf("Choose column (0 to %d): ", board_size - 1);
@@ -26,15 +35,21 @@ int scan_move(int board_size) {
     return col;
 }
 
-int comp_move(int board_size, int *arena){
+// ---------------------------------------------
+// AI picks a random non-full column
+// ---------------------------------------------
+int ai_move(int board_size, int *arena) {
     int col;
-    while (1) {
+    do {
         col = rand() % board_size;
         if (*get_cell(arena, board_size, col, 0) == EMPTY)
             return col;
-    }
+    } while (1);
 }
 
+// ---------------------------------------------
+// Drop piece into column like Connect-4
+// ---------------------------------------------
 void update_arena(int *arena, int size, int column, Cell player) {
     for (int y = size - 1; y >= 0; --y) {
         int *cell = get_cell(arena, size, column, y);
@@ -45,6 +60,9 @@ void update_arena(int *arena, int size, int column, Cell player) {
     }
 }
 
+// ---------------------------------------------
+// Print arena
+// ---------------------------------------------
 void print_arena(int *arena, int size) {
     for (int y = 0; y < size; ++y) {
         for (int x = 0; x < size; ++x) {
@@ -55,88 +73,77 @@ void print_arena(int *arena, int size) {
     printf("\n");
 }
 
-static bool check_dir(int *arena, int size, int x, int y, int dx, int dy, int needed)
-{
-    int start = *get_cell(arena, size, x, y);
-    if (start == EMPTY)
-        return false;
+// ---------------------------------------------
+// Winner check helper: check line in direction dx,dy
+// ---------------------------------------------
+static bool check_dir(int *arena, int size, int x, int y, int dx, int dy, int needed) {
+    Cell start = *get_cell(arena, size, x, y);
+    if (start == EMPTY) return false;
 
-    for (int i = 1; i < needed; i++)
-    {
+    for (int i = 1; i < needed; ++i) {
         int nx = x + dx * i;
         int ny = y + dy * i;
-
         if (nx < 0 || ny < 0 || nx >= size || ny >= size)
             return false;
-
         if (*get_cell(arena, size, nx, ny) != start)
             return false;
     }
-
     return true;
 }
 
-int winner_chicken(int *arena, int size, int needed)
-{
-    for (int y = 0; y < size; y++)
-    {
-        for (int x = 0; x < size; x++)
-        {
-            int cell = *get_cell(arena, size, x, y);
-            if (cell == EMPTY) continue;
-
-            if (check_dir(arena, size, x, y, 1, 0, needed)) return cell;
-            if (check_dir(arena, size, x, y, 0, 1, needed)) return cell;
-            if (check_dir(arena, size, x, y, 1, 1, needed)) return cell;
-            if (check_dir(arena, size, x, y, -1, 1, needed)) return cell;
+// ---------------------------------------------
+// Winner: check all cells & directions
+// ---------------------------------------------
+Cell winner(int *arena, int size, int needed) {
+    for (int y = 0; y < size; ++y) {
+        for (int x = 0; x < size; ++x) {
+            if (check_dir(arena, size, x, y, 1, 0, needed)) return *get_cell(arena, size, x, y);
+            if (check_dir(arena, size, x, y, 0, 1, needed)) return *get_cell(arena, size, x, y);
+            if (check_dir(arena, size, x, y, 1, 1, needed)) return *get_cell(arena, size, x, y);
+            if (check_dir(arena, size, x, y, -1, 1, needed)) return *get_cell(arena, size, x, y);
         }
     }
-    return -1;
+    return EMPTY;
 }
 
+// ---------------------------------------------
+// Game loop
+// ---------------------------------------------
 void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) {
     srand(time(NULL));
 
-    int size = size_of_arena;
-    int win_length = size_of_win_line;
-
-    int *arena = malloc(sizeof(int) * size * size);
-
-    for (int i = 0; i < size * size; i++)
+    int *arena = malloc(sizeof(int) * size_of_arena * size_of_arena);
+    for (int i = 0; i < size_of_arena * size_of_arena; i++)
         arena[i] = EMPTY;
 
-    int whose_turn = 0;
-    int the_winner = -1;
+    Cell current = PLAYER1;
+    Cell win;
 
-    do {
-        print_arena(arena, size);
-        printf("Player %d's turn.\n", whose_turn);
+    while ((win = winner(arena, size_of_arena, size_of_win_line)) == EMPTY) {
+        print_arena(arena, size_of_arena);
+        printf("Player %d's turn.\n", current);
 
         int col;
-        if (opponent_is_ai == 1 && whose_turn == 1)
-            col = comp_move(size, arena);
+        if (current == PLAYER2 && opponent_is_ai)
+            col = ai_move(size_of_arena, arena);
         else
-            col = scan_move(size);
+            col = scan_move(size_of_arena);
 
-        if (col < 0 || col >= size) {
-            printf("Invalid move! Try again.\n");
+        if (col < 0 || col >= size_of_arena) {
+            printf("Invalid move!\n");
             continue;
         }
 
-        if (*get_cell(arena, size, col, 0) != EMPTY) {
-            printf("Column is full! Try again.\n");
+        if (*get_cell(arena, size_of_arena, col, 0) != EMPTY) {
+            printf("Column full!\n");
             continue;
         }
 
-        update_arena(arena, size, col, whose_turn);
-        whose_turn = 1 - whose_turn;
+        update_arena(arena, size_of_arena, col, current);
+        current = (current == PLAYER1 ? PLAYER2 : PLAYER1);
+    }
 
-        the_winner = winner_chicken(arena, size, win_length);
-
-    } while (the_winner == -1);
-
-    print_arena(arena, size);
-    printf("Winner Winner Chicken Dinner! Player %d wins!\n", the_winner);
-
+    print_arena(arena, size_of_arena);
+    printf("Player %d wins!\n", win);
     free(arena);
 }
